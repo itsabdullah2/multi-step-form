@@ -1,0 +1,563 @@
+/* Import SCSS file */
+@use "../mixins/mixin" as *;
+@import "../variables/variables";
+/* Import Font */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
+/* Components */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+:focus {
+  outline: none;
+}
+/* Global */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  @include flex-center;
+  height: 100vh;
+  background-color: $magnolia;
+}
+
+/* Start Grouping */
+.error {
+  & input {
+    border-color: $strawberry-red;
+  }
+}
+.toggle-checkbox {
+  appearance: none;
+  display: none;
+}
+.toggle-switch {
+  position: relative;
+  width: 50px;
+  height: 20px;
+  background-color: $marine-blue;
+  margin-inline: 15px;
+  border-radius: 16px;
+  cursor: pointer;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: $white;
+    border-radius: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2px;
+    transition: $transition;
+  }
+}
+.toggle-checkbox:checked + .toggle-switch::before {
+  left: 32px;
+}
+/* End Grouping */
+
+.container {
+  background-color: $white;
+  padding: 20px;
+  display: flex;
+  width: 55%;
+  height: 600px;
+  box-shadow: $shadow;
+  border-radius: $radius;
+  @include breakpoints(small) {
+    background-color: transparent;
+    box-shadow: none;
+    width: 100%;
+    @include flex-column-between;
+    padding: 0;
+    height: 100%;
+  }
+  @include breakpoints(medium) {
+    background-color: transparent;
+    box-shadow: none;
+    width: 100%;
+    @include flex-column-between;
+    padding: 0;
+    height: 100%;
+  }
+  & .side-tracker {
+    position: relative;
+    border-radius: $radius;
+    padding: 30px;
+    flex-basis: 29%;
+    overflow: hidden;
+    & .section {
+      @include items-center;
+      position: relative;
+      margin-bottom: 30px;
+      z-index: 1;
+      & .number {
+        @include flex-center;
+        width: 30px;
+        height: 30px;
+        color: $white;
+        border: 1px solid $white;
+        border-radius: 50%;
+        margin-right: 20px;
+        font-weight: $fw-b;
+        transition: $transition ease-in-out;
+        &.active {
+          color: $dark;
+          border-color: $light-blue;
+          background-color: $light-blue;
+        }
+      }
+      & .step-info {
+        @include flex-column;
+        & .step-number {
+          margin-bottom: 5px;
+          color: hsl(0deg 0% 100% / 70%);
+          text-transform: uppercase;
+          font-size: 14px;
+        }
+        & .section-type {
+          text-transform: uppercase;
+          color: $white;
+          font-weight: 500;
+          letter-spacing: 1px;
+        }
+      }
+    }
+    & .graphic-img {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      & > img {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    @include breakpoints(small) {
+      position: relative;
+      width: 100%;
+      @include flex-center;
+      border-radius: 0;
+      overflow: unset;
+      & .section .number {
+        width: 40px;
+        height: 40px;
+      }
+      & .step-info {
+        & > span {
+          display: none;
+        }
+      }
+      & .graphic-img {
+        & > img {
+          width: 100%;
+          content: url("../assets/images/bg-sidebar-mobile.svg");
+        }
+      }
+    }
+    @include breakpoints(medium) {
+      position: relative;
+      width: 100%;
+      @include flex-center;
+      border-radius: 0;
+      overflow: unset;
+      & .section .number {
+        width: 40px;
+        height: 40px;
+      }
+      & .step-info {
+        & > span {
+          display: none;
+        }
+      }
+      & .graphic-img {
+        & > img {
+          width: 100%;
+          content: url("../assets/images/bg-sidebar-mobile.svg");
+        }
+      }
+    }
+    @include breakpoints(large) {
+      flex-basis: 36%;
+      padding: 25px;
+    }
+  }
+  & .steps-content {
+    flex: 1;
+    @include flex-column-between;
+    & .step-segment {
+      padding-inline: 80px;
+      & .content {
+        width: 100%;
+        & .text-info {
+          margin-block: 20px;
+          & .header {
+            color: $marine-blue;
+            margin-bottom: 10px;
+            font-size: 35px;
+          }
+          & .paragraph {
+            color: $cool-gray;
+          }
+        }
+        & form {
+          & .field-container {
+            margin-bottom: 30px;
+            @include flex-column;
+            .label-required {
+              @include justify-between;
+              margin: 5px;
+              & label {
+                color: $marine-blue;
+                font-weight: $fw-med;
+              }
+              & .required {
+                display: none;
+                color: $strawberry-red;
+                font-weight: $fw-b;
+              }
+            }
+            & input {
+              padding: 15px;
+              border-radius: 10px;
+              font-size: 15px;
+              font-weight: $fw-med;
+              border: 1px solid $cool-gray;
+              &:focus {
+                border-color: $purplish-blue;
+              }
+              &:focus::placeholder {
+                transition: $transition;
+                opacity: 0;
+              }
+            }
+          }
+        }
+        & .boxes {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 20px;
+          margin-bottom: 50px;
+          & .box {
+            border: 1px solid $cool-gray;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: $transition;
+            &.active {
+              border-color: $purplish-blue;
+              background-color: $magnolia;
+            }
+            &:hover {
+              border-color: $purplish-blue;
+            }
+            & > img {
+              margin-bottom: 40px;
+            }
+            & .plan-info {
+              @include flex-column;
+              & .type {
+                font-weight: $fw-b;
+                color: $marine-blue;
+                margin-bottom: 5px;
+              }
+              & .monthly-price,
+              & .yearly-price {
+                color: $cool-gray;
+              }
+              & .yearly-price {
+                display: none;
+              }
+              & .free-months {
+                display: none;
+                color: $marine-blue;
+                font-size: 14px;
+                margin-top: 8px;
+              }
+            }
+          }
+        }
+        & .switch-btn {
+          @include flex-center;
+          background-color: $magnolia;
+          padding: 15px;
+          border-radius: 10px;
+          span {
+            font-weight: $fw-b;
+            color: $cool-gray;
+            &.active {
+              color: $marine-blue;
+            }
+          }
+        }
+        & .rows {
+          & .row {
+            @include justify-between;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid $cool-gray;
+            transition: $transition;
+            margin-bottom: 30px;
+            cursor: pointer;
+            &:hover {
+              border-color: $purplish-blue;
+            }
+            & > label {
+              & .checkbox {
+                appearance: none;
+                display: none;
+              }
+              & .custom-checkbox {
+                position: relative;
+                width: 20px;
+                height: 20px;
+                border-radius: 6px;
+                border: 1px solid $cool-gray;
+                margin-right: 20px;
+                transition: $transition;
+                cursor: pointer;
+                &::before {
+                  font-family: "Font Awesome 6 Free";
+                  content: "";
+                  font-weight: 900;
+                  font-size: 14px;
+                  @include flex-center;
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+              & .checkbox:checked + .custom-checkbox {
+                background-color: $purplish-blue;
+                border-color: $purplish-blue;
+              }
+              & .checkbox:checked + .custom-checkbox::before {
+                content: "\f00c";
+                color: $white;
+              }
+            }
+            & .info {
+              flex: 1;
+              @include flex-column;
+              & .title {
+                color: $marine-blue;
+                margin-bottom: 5px;
+                font-weight: $fw-b;
+              }
+              & .explain {
+                color: $cool-gray;
+                font-size: 14px;
+              }
+            }
+            & .price {
+              color: $purplish-blue;
+            }
+          }
+        }
+        & .pill {
+          background-color: $magnolia;
+          padding: 30px;
+          border-radius: 10px;
+          margin-bottom: 30px;
+          & .upper-pill {
+            @include justify-between;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid $light-gray;
+            & .arcade {
+              @include flex-column;
+              & > span {
+                color: $marine-blue;
+                font-weight: $fw-b;
+              }
+              & > button {
+                background-color: transparent;
+                color: $cool-gray;
+                font-size: 16px;
+                text-align: left;
+                text-decoration: underline;
+                border: none;
+                margin-top: 5px;
+                cursor: pointer;
+                transition: $transition;
+                &:hover {
+                  color: $purplish-blue;
+                }
+              }
+            }
+            & .monthly-price-of-Pill,
+            & .yearly-price-of-Pill {
+              color: $marine-blue;
+              font-weight: $fw-b;
+              font-size: 17px;
+            }
+            & .yearly-price-of-pill {
+              display: none;
+            }
+          }
+          & .lower-pill {
+            & .extra {
+              @include justify-between;
+              &:not(:last-child) {
+                margin-bottom: 20px;
+              }
+              & span {
+                &:nth-child(1) {
+                  color: $cool-gray;
+                }
+                &:nth-child(2) {
+                  color: $marine-blue;
+                }
+                &.yearly-service-price,
+                &.yearly-storage-price {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+        & .total-cost {
+          @include justify-between;
+          padding-inline: 30px;
+          & span:first-child {
+            color: $cool-gray;
+          }
+          & span:nth-child(2),
+          & span:nth-child(3) {
+            color: $purplish-blue;
+            font-size: 25px;
+            font-weight: $fw-b;
+          }
+          & .yearly-final-price {
+            display: none;
+          }
+        }
+      }
+      &.thanks-section {
+        @include items-center;
+        height: 100%;
+        & .thanks-msg {
+          @include items-center-column;
+          & > img {
+            margin-bottom: 1.5rem;
+          }
+          & > h2 {
+            margin-bottom: 2rem;
+            color: $marine-blue;
+            font-weight: $fw-b;
+            font-size: 35px;
+          }
+          & > p {
+            color: $cool-gray;
+            text-align: center;
+            font-weight: $fw-med;
+            font-size: 15px;
+            line-height: 1.5;
+          }
+        }
+      }
+      @include breakpoints(small) {
+        position: relative;
+        padding-inline: 0;
+        margin-inline: 20px;
+        & .content {
+          position: absolute;
+          top: -70px;
+          background-color: $white;
+          padding: 20px;
+          border-radius: 6px;
+          & .boxes {
+            grid-template-columns: minmax(200px, 1fr);
+            & .box {
+              display: flex;
+              align-items: center;
+              & > img {
+                margin-bottom: 0;
+                margin-right: 15px;
+              }
+            }
+          }
+        }
+      }
+      @include breakpoints(medium) {
+        position: relative;
+        padding-inline: 0;
+        margin-inline: 20px;
+        & .content {
+          position: absolute;
+          top: -70px;
+          background-color: $white;
+          padding: 20px;
+          border-radius: 6px;
+          & .boxes {
+            grid-template-columns: minmax(200px, 1fr);
+            & .box {
+              display: flex;
+              align-items: center;
+              & > img {
+                margin-bottom: 0;
+                margin-right: 15px;
+              }
+            }
+          }
+        }
+      }
+      @include breakpoints(large) {
+        padding: 50px;
+      }
+    }
+    & .buttons {
+      padding-inline: 80px;
+      margin-bottom: 20px;
+      display: inline-block;
+      width: 100%;
+      & button {
+        transition: $transition;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 15px 25px;
+        border-radius: 10px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        &#prev {
+          color: $cool-gray;
+          background-color: transparent;
+          font-weight: $fw-b;
+          &:hover {
+            color: $marine-blue;
+          }
+        }
+        &#next {
+          background-color: $marine-blue;
+          color: $white;
+          float: right;
+          &:hover {
+            background-color: $purplish-blue;
+          }
+        }
+      }
+      @include breakpoints(small) {
+        padding-inline: 0;
+        padding: 20px;
+        margin: 0;
+        background-color: $white;
+      }
+      @include breakpoints(medium) {
+        padding-inline: 0;
+        padding: 20px;
+        margin: 0;
+        background-color: $white;
+      }
+    }
+  }
+}
